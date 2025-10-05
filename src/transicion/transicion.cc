@@ -23,7 +23,7 @@ Transicion::Transicion(const int& id, Estado* actual, const char& lecturaCinta, 
  * @overload Sobrecarga del operador de salida para imprimir una transición
  */
 ostream& operator<<(ostream& os, const Transicion& transicion) {
-  os << "(" << transicion.actual_->getId() << ", " << transicion.lecturaCadena_ << ", " << transicion.lecturaPila_ << ") -> (" 
-     << transicion.siguiente_->getId() << ", " << transicion.apilar_ << ") " << transicion.id_;
+  os << "( " << transicion.actual_->getId() << ", " << transicion.lecturaCinta_ << ")";
+  os << " -> ( " << transicion.siguiente_->getId() << ", " << transicion.escrituraCinta_ << ", " << transicion.movimientoCinta_ << " )";
   return os;
 }
