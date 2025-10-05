@@ -1,5 +1,5 @@
 # Ejemplo de una MT
-# Reconoce cadenas binarias con un número impar de 0
+# Reconoce cadenas binarias con un nï¿½mero impar de 0
 q0 q1 q2
 0 1
 0 1 .
