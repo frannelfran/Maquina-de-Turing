@@ -7,8 +7,9 @@
  * @param alfabetoPila Alfabeto de la pila del autómata
  * @param topPila Símbolo inicial de la pila
  */
-Automata::Automata(const set<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta) {
+Automata::Automata(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta) {
   estados_ = estados;
+  sort(estados_.begin(), estados_.end(), [](Estado* a, Estado* b) { return *a < *b; });
   alfabetoEntrada_ = alfabetoEntrada;
   alfabetoCinta_ = alfabetoCinta;
 
@@ -126,9 +127,12 @@ ostream& operator<<(ostream& os, const Automata& automata) {
   os << "Γ -> " << automata.alfabetoCinta_ << endl;
   os << "q0 -> " << automata.estadoActual_->getId() << endl;
   os << "F -> {";
-  for (auto estado : automata.estados_) {
-    if (estado->esAceptacion()) {
-      os << estado->getId() << ", ";
+  for (auto it = automata.estados_.begin(); it != automata.estados_.end(); ++it) {
+    if ((*it)->esAceptacion()) {
+      os << (*it)->getId();
+      if (next(it) != automata.estados_.end()) {
+        os << ", ";
+      }
     }
   }
   os << "}" << endl;

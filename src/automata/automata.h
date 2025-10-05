@@ -4,7 +4,7 @@
 #include "../estado/estado.h"
 #include <iomanip> // Para std::setw
 #include <vector> // Para std::vector
-#include <algorithm> // Para reverse
+#include <algorithm> // Para sort
 
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
@@ -16,7 +16,7 @@
 class Automata {
   public:
     // Constructor y destructor
-    Automata(const set<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta);
+    Automata(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta);
     ~Automata() = default;
 
     // Sobrecarga de operadores
@@ -30,7 +30,7 @@ class Automata {
     vector<Transicion*> obtenerTransicionesPosibles(char simbolo, vector<Transicion*> transicionesUsadas);
 
   private:
-    set<Estado*> estados_;
+    vector<Estado*> estados_;
     Alfabeto alfabetoEntrada_;
     Alfabeto alfabetoCinta_;
     Cinta cinta_;

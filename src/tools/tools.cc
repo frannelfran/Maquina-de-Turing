@@ -43,13 +43,13 @@ Tools leerFichero(const string& nombreFichero) {
     }
   }
 
-  // Leo el conjunto de estados finales
-  getline(file, linea);
-  leerEstadosFinales(istringstream(linea));
-
   // Leo el simbolo blanco de la máquina
   getline(file, linea);
   comprobarSimbolo(linea[0]);
+
+  // Leo el conjunto de estados finales
+  getline(file, linea);
+  leerEstadosFinales(istringstream(linea));
 
   // Leo las transiciones
   int id = 1;
@@ -69,9 +69,9 @@ Tools leerFichero(const string& nombreFichero) {
  */
 void leerEstados(istringstream is) {
   string linea;
-  set<Estado*> estados;
+  vector<Estado*> estados;
   while (is >> linea) {
-    estados.insert(new Estado(linea));
+    estados.push_back(new Estado(linea));
   }
   datos.estados = estados;
 }
@@ -124,7 +124,7 @@ void leerTransiciones(istringstream is, int id) {
   // Compruebo los estados
   comprobarEstado(actual), comprobarEstado(siguiente);
   // Compruebo los símbolos
-  comprobarSimbolo(lecturaCinta[0]), comprobarSimbolo(escrituraCinta[0]), comprobarSimbolo(movimientoCinta[0]);
+  comprobarSimbolo(lecturaCinta[0]), comprobarSimbolo(escrituraCinta[0]), comprobarEscrituraLectura(movimientoCinta[0]);
   // Busco el estaddo inicial y siguiente en el conjunto de estados
   Estado* estadoSiguiente = buscarEstado(siguiente), *estadoActual = buscarEstado(actual);
   // Creo la transición y la agrego la transicion
@@ -186,7 +186,6 @@ void comprobarEstado(const string& estado) {
  */
 void comprobarSimbolo(const char& simbolo) {
   bool pertenece = false;
-  bool escrituraLectura = false;
 
   if (simbolo == '.') { // epsilon siempre pertenece
     return;
@@ -194,15 +193,22 @@ void comprobarSimbolo(const char& simbolo) {
     pertenece = true;
   } else if (datos.alfabetos.second.pertenece(simbolo)) {
     pertenece = true;
-  } else if (simbolo == 'E' || simbolo == 'L') { // Movimientos de la cinta siempre pertenecen
-    escrituraLectura = true;
   }
 
   if (!pertenece) {
     cerr << "Σ -> " << datos.alfabetos.first << endl;
     cerr << "Γ -> " << datos.alfabetos.second << endl;
     throw runtime_error("El símbolo '" + string(1, simbolo) + "' no pertenece a ningún alfabeto.");
-  } else if (!escrituraLectura) {
+  }
+}
+
+/**
+ * @brief Función para comprobar que el simbolo de escritura/lectura es el correcto
+ * @param simbolo Símbolo a comprobar
+ * @return void
+ */
+void comprobarEscrituraLectura(const char& simbolo) {
+  if (simbolo != 'R' && simbolo != 'L') {
     throw runtime_error("El símbolo '" + string(1, simbolo) + "' no es un símbolo de escritura/lectura válido.");
   }
 }

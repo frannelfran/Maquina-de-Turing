@@ -15,7 +15,7 @@
  */
 struct Tools {
   pair<Alfabeto, Alfabeto> alfabetos;
-  set<Estado*> estados;
+  vector<Estado*> estados;
 };
 
 Tools leerFichero(const string& nombreFichero); // Leo el fichero para obtener los datos
@@ -25,6 +25,7 @@ void leerAlfabeto(istringstream is); // Leo el alfabeto del fichero
 void leerTransiciones(istringstream is, int id); // Leo las transiciones del fichero
 void comprobarEstado(const string& estado); // Compruebo que el estado es válido
 void comprobarSimbolo(const char& simbolo); // Compruebo que el símbolo es válido
+void comprobarEscrituraLectura(const char& simbolo); // Compruebo que el símbolo es de escritura/lectura válido
 Estado* buscarEstado(const string& estado); // Buscar un estado en el conjunto de estados
 void mostrarCabecera(); // Muestro el inicio de la traza
 
