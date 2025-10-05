@@ -1,4 +1,5 @@
 #pragma once
+#include "../cinta/cinta.h"
 #include <string>
 
 #ifndef TRANSICION_H
