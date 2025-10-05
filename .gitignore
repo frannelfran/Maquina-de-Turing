@@ -39,3 +39,12 @@
 
 # debug information files
 *.dwo
+
+# dSYM files
+*mt.dSYM/
+
+#Ejecutables
+mt
+
+# Debug files
+.vscode/
