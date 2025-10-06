@@ -34,10 +34,9 @@ bool Automata::ejecutar(string cadena) {
 /**
  * @brief Método para obtener las transiciones posibles desde el estado actual
  * @param simbolo Cadena de entrada
- * @param transicionesUsadas Vector de transiciones usadas (no utilizado en la nueva implementación)
  * @return Vector de transiciones posibles
  */
-vector<Transicion*> Automata::obtenerTransicionesPosibles(char simbolo, vector<Transicion*> transicionesUsadas) {
+vector<Transicion*> Automata::obtenerTransicionesPosibles(char simbolo) {
   vector<Transicion*> transicionesPosibles;
   
   for (auto& transicion : estadoActual_->getTransiciones()) {

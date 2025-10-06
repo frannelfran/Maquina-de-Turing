@@ -20,6 +20,26 @@ Transicion::Transicion(const int& id, Estado* actual, const char& lecturaCinta, 
 }
 
 /**
+ * @brief Método para ejecutar la transición
+ * @param cinta Cinta de la máquina de Turing
+ * @return Estado siguiente después de ejecutar la transición
+ */
+Estado* Transicion::ejecutar(Cinta& cinta) {
+  // Escribo en la cinta
+  cinta.escribir(escrituraCinta_);
+  
+  // Muevo la cabeza de la cinta
+  if (movimientoCinta_ == 'R') {
+    cinta.moverDerecha();
+  } else if (movimientoCinta_ == 'L') {
+    cinta.moverIzquierda();
+  }
+  
+  // Retorno el estado siguiente
+  return siguiente_;
+}
+
+/**
  * @overload Sobrecarga del operador de salida para imprimir una transición
  */
 ostream& operator<<(ostream& os, const Transicion& transicion) {
