@@ -1,5 +1,5 @@
 #include "tools/tools.h"
-#include "automata/automata.h"
+#include "maquinaTuring/maquinaTuring.h"
 #include <iostream>
 
 using namespace std;
@@ -21,10 +21,10 @@ int main(int argc, char* argv[]) {
     string nombreFichero = argv[1];
     Tools datos = leerFichero(nombreFichero);
     cout << "Fichero leído correctamente." << endl;
-    // Creo el automata con los datos leídos
-    Automata automata(datos.estados, datos.alfabetos.first, datos.alfabetos.second);
+    // Creo la máquina de Turing con los datos leídos
+    MaquinaTuring mt(datos.estados, datos.alfabetos.first, datos.alfabetos.second);
     
-    cout << automata;
+    cout << mt;
     string cadena;
     
     while (true) {
@@ -34,12 +34,12 @@ int main(int argc, char* argv[]) {
         break;
       }
       mostrarCabecera();
-      if (automata.ejecutar(cadena)) {
+      if (mt.ejecutar(cadena)) {
         cout << "La cadena " << cadena << " pertenece al lenguaje." << endl;
       } else {
         cout << "La cadena " << cadena << " no pertenece al lenguaje." << endl;
       }
-      automata.reiniciar();
+      mt.reiniciar();
     }
 
     return 0;

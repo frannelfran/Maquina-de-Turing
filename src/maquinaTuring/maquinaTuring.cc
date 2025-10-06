@@ -1,13 +1,13 @@
-#include "automata.h"
+#include "maquinaTuring.h"
 
 /**
- * @brief Constructor de la clase Automata
+ * @brief Constructor de la clase MaquinaTuring
  * @param estados Conjunto de estados del autómata
  * @param alfabetoEntrada Alfabeto de entrada del autómata
  * @param alfabetoPila Alfabeto de la pila del autómata
  * @param topPila Símbolo inicial de la pila
  */
-Automata::Automata(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta) {
+MaquinaTuring::MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta) {
   estados_ = estados;
   sort(estados_.begin(), estados_.end(), [](Estado* a, Estado* b) { return *a < *b; });
   alfabetoEntrada_ = alfabetoEntrada;
@@ -27,7 +27,7 @@ Automata::Automata(const vector<Estado*>& estados, const Alfabeto& alfabetoEntra
  * @param cadena Cadena de entrada
  * @return true si la cadena es aceptada, false en caso contrario
  */
-bool Automata::ejecutar(string cadena) {
+bool MaquinaTuring::ejecutar(string cadena) {
   return true;
 }
 
@@ -36,7 +36,7 @@ bool Automata::ejecutar(string cadena) {
  * @param simbolo Cadena de entrada
  * @return Transición posible o nullptr si no hay ninguna
  */
-Transicion* Automata::obtenerTransicionesPosibles(char simbolo) {
+Transicion* MaquinaTuring::obtenerTransicionesPosibles(char simbolo) {
   Transicion* transicionPosible = nullptr;
   
   for (auto& transicion : estadoActual_->getTransiciones()) {
@@ -54,7 +54,7 @@ Transicion* Automata::obtenerTransicionesPosibles(char simbolo) {
  * @param transiciones Vector de transiciones disponibles
  * @return void
  */
-//void Automata::mostrarTraza(const string& cadena, const vector<Transicion*>& transiciones) {
+//void MaquinaTuring::mostrarTraza(const string& cadena, const vector<Transicion*>& transiciones) {
 //  cout << left
 //  << setw(15) << estadoActual_->getId()
 //  << setw(15) << (cadena.empty() ? "-" : cadena)
@@ -86,7 +86,7 @@ Transicion* Automata::obtenerTransicionesPosibles(char simbolo) {
  * @brief Método para reiniciar el autómata a su estado inicial
  * @return void
  */
-void Automata::reiniciar() {
+void MaquinaTuring::reiniciar() {
   // Reinicio el estado actual al estado inicial
   for (Estado* estado : estados_) {
     if (estado->esInicial()) {
@@ -101,7 +101,7 @@ void Automata::reiniciar() {
  * @param cadena Cadena de entrada
  * @return true si la cadena es válida, false en caso contrario
  */
-bool Automata::esValida(const string& cadena) const {
+bool MaquinaTuring::esValida(const string& cadena) const {
   for (char simbolo : cadena) {
     if (!alfabetoEntrada_.pertenece(simbolo) && simbolo != '.') {
       return false;
@@ -113,23 +113,23 @@ bool Automata::esValida(const string& cadena) const {
 /**
  * @overload Sobrecarga del operador << para mostrar el autómata
  */
-ostream& operator<<(ostream& os, const Automata& automata) {
+ostream& operator<<(ostream& os, const MaquinaTuring& MaquinaTuring) {
   os << "Q -> {";
-  for (auto it = automata.estados_.begin(); it != automata.estados_.end(); ++it) {
+  for (auto it = MaquinaTuring.estados_.begin(); it != MaquinaTuring.estados_.end(); ++it) {
     os << (*it)->getId();
-    if (next(it) != automata.estados_.end()) {
+    if (next(it) != MaquinaTuring.estados_.end()) {
       os << ", ";
     }
   }
   os << "}" << endl;
-  os << "Σ -> " << automata.alfabetoEntrada_ << endl;
-  os << "Γ -> " << automata.cinta_.getAlfabeto() << endl;
-  os << "q0 -> " << automata.estadoActual_->getId() << endl;
+  os << "Σ -> " << MaquinaTuring.alfabetoEntrada_ << endl;
+  os << "Γ -> " << MaquinaTuring.cinta_.getAlfabeto() << endl;
+  os << "q0 -> " << MaquinaTuring.estadoActual_->getId() << endl;
   os << "F -> {";
-  for (auto it = automata.estados_.begin(); it != automata.estados_.end(); ++it) {
+  for (auto it = MaquinaTuring.estados_.begin(); it != MaquinaTuring.estados_.end(); ++it) {
     if ((*it)->esAceptacion()) {
       os << (*it)->getId();
-      if (next(it) != automata.estados_.end()) {
+      if (next(it) != MaquinaTuring.estados_.end()) {
         os << ", ";
       }
     }
@@ -137,7 +137,7 @@ ostream& operator<<(ostream& os, const Automata& automata) {
   os << "}" << endl;
   
   // Transiciones
-  for (Estado* estado : automata.estados_) {
+  for (Estado* estado : MaquinaTuring.estados_) {
     os << *estado << endl;
   }
   return os;

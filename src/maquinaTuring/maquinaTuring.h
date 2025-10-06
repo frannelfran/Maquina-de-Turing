@@ -6,21 +6,21 @@
 #include <vector> // Para std::vector
 #include <algorithm> // Para sort
 
-#ifndef AUTOMATA_H
-#define AUTOMATA_H
+#ifndef MAQUINATURING_H
+#define MAQUINATURING_H
 
 /**
- * @class Automata
+ * @class MaquinaTuring
  * @brief Clase que representa un autómata
  */
-class Automata {
+class MaquinaTuring {
   public:
     // Constructor y destructor
-    Automata(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta);
-    ~Automata() = default;
+    MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta);
+    ~MaquinaTuring() = default;
 
     // Sobrecarga de operadores
-    friend ostream& operator<<(ostream& os, const Automata& automata);
+    friend ostream& operator<<(ostream& os, const MaquinaTuring& maquina);
 
     // Métodos
     bool ejecutar(string cadena);
@@ -36,4 +36,4 @@ class Automata {
     Estado* estadoActual_;
 };
 
-#endif // AUTOMATA_H
+#endif // MAQUINATURING_H
