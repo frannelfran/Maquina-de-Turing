@@ -227,10 +227,10 @@ void comprobarEscrituraLectura(const char& simbolo) {
  * @return void
  */
 void mostrarCabecera() {
-  cout << "------------------------------------------------------------" << endl;
+  cout << "-------------------------------------------------" << endl;
   cout << left;
-  cout << setw(15) << "Estado actual" 
+  cout << setw(20) << "Estado actual" 
   << setw(15) << "Cinta"
-  << setw(15) << "Transiciones" << endl;
-  cout << "------------------------------------------------------------" << endl;
+  << setw(15) << "Transicion" << endl;
+  cout << "-------------------------------------------------" << endl;
 }

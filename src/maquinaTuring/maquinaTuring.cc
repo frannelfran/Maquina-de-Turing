@@ -37,6 +37,9 @@ bool MaquinaTuring::ejecutar(string cadena) {
   // Inserto la cadena en la cinta
   cinta_.insertar(cadena);
 
+  // Muestro la cabecera
+  mostrarTraza(cadena, nullptr);
+
   while (true) {
     char simboloLeido = cinta_.leer();
 
@@ -50,6 +53,9 @@ bool MaquinaTuring::ejecutar(string cadena) {
 
     // Ejecuto la transicion
     estadoActual_ = transicion->ejecutar(cinta_);
+
+    // Muestro la traza
+    mostrarTraza(cadena, transicion);
 
     if (estadoActual_->esAceptacion()) {
       return true;
@@ -77,36 +83,22 @@ Transicion* MaquinaTuring::obtenerTransicionPosible(char simbolo) {
 /**
  * @brief Método para mostrar la traza de la ejecución del autómata
  * @param cadena Cadena de entrada
- * @param transiciones Vector de transiciones disponibles
+ * @param transicion Transición actual
  * @return void
  */
-//void MaquinaTuring::mostrarTraza(const string& cadena, const vector<Transicion*>& transiciones) {
-//  cout << left
-//  << setw(15) << estadoActual_->getId()
-//  << setw(15) << (cadena.empty() ? "-" : cadena)
-//  << setw(15) << (pilaStr.empty() ? "-" : pilaStr);
-//
-//  if (transiciones.empty()) {
-//    // Miro si es la transición final
-//    if (cadena.empty() && pila_.empty()) {
-//      cout << setw(15) << "w∈L";
-//    } else {
-//      cout << setw(15) << "∄";
-//    }
-//    cout << "\n------------------------------------------------------------" << endl;
-//    return;
-//  }
-//
-//  // Mostrar las transiciones posibles
-//  for (auto it = transiciones.begin(); it != transiciones.end(); ++it) {
-//    cout << left
-//    << setw(0) << (*it)->getId();
-//    if (next(it) != transiciones.end()) {
-//      cout << ", ";
-//    }
-//  }
-//  cout << "\n------------------------------------------------------------" << endl;
-//}
+void MaquinaTuring::mostrarTraza(const string& cadena, const Transicion* transicion) {
+  cout << left
+  << setw(20) << estadoActual_->getId()
+  << setw(20) << cinta_;
+  if (transicion == nullptr) {
+    cout << setw(15) << "-" << endl;
+    cout << "-------------------------------------------------" << endl;
+    return;
+  }
+  cout << left
+  << setw(15) << transicion->getId() << endl;
+  cout << "-------------------------------------------------" << endl;
+}
 
 /**
  * @brief Método para reiniciar el autómata a su estado inicial

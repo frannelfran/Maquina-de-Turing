@@ -45,5 +45,6 @@ Estado* Transicion::ejecutar(Cinta& cinta) {
 ostream& operator<<(ostream& os, const Transicion& transicion) {
   os << "(" << transicion.actual_->getId() << ", " << transicion.lecturaCinta_ << ")";
   os << " -> (" << transicion.siguiente_->getId() << ", " << transicion.escrituraCinta_ << ", " << transicion.movimientoCinta_ << ")";
+  os << " [ID: " << transicion.id_ << "]";
   return os;
 }

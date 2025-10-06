@@ -72,12 +72,14 @@ void Cinta::moverIzquierda() {
  * @overload Sobrecarga del operador <<
  */
 ostream& operator<<(ostream& os, const Cinta& cinta) {
+  string resultado;
   for (int i = 0; i < cinta.cinta_.size(); ++i) {
     if (i == cinta.cabezal_) {
-      os << "[" << cinta.cinta_[i] << "]"; // Indicar la posicion del cabezal
+      resultado += "[" + string(1, cinta.cinta_[i]) + "]"; // Indicar la posicion del cabezal
     } else {
-      os << cinta.cinta_[i];
+      resultado += string(1, cinta.cinta_[i]);
     }
   }
+  os << resultado;
   return os;
 }

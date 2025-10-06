@@ -26,7 +26,7 @@ class MaquinaTuring {
     bool ejecutar(string cadena);
     bool esValida(const string& cadena) const;
     void reiniciar();
-    void mostrarTraza(const string& cadena, const vector<Transicion*>& transiciones) {}
+    void mostrarTraza(const string& cadena, const Transicion* transicion);
     Transicion* obtenerTransicionPosible(char simbolo);
 
   private:

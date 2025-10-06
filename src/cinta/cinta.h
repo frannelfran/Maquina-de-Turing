@@ -1,4 +1,5 @@
 #include "../alfabeto/alfabeto.h"
+#include <vector>
 
 #ifndef CINTA_H
 #define CINTA_H
