@@ -6,7 +6,7 @@ CXXFLAGS := -std=c++20 -I include -O0 -g
 SRCS := $(shell find . -name '*.cc')
 
 # Nombre del ejecutable
-TARGET := mt
+TARGET := turing
 
 .PHONY: all clean
 

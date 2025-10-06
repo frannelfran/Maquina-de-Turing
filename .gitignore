@@ -41,10 +41,10 @@
 *.dwo
 
 # dSYM files
-*mt.dSYM/
+*turing.dSYM/
 
 #Ejecutables
-mt
+turing
 
 # Debug files
 .vscode/
