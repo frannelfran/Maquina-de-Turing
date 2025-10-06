@@ -87,8 +87,11 @@ void leerEstadosFinales(istringstream is) {
     comprobarEstado(linea);
     for (Estado* estado : datos.estados) {
       if (estado->getId() == linea) {
-        estado->setAceptacion();
-        break;
+        if (estado->esInicial()) {
+          throw runtime_error("El estado " + linea + " es inicial y no puede ser de aceptación.");
+        } else {
+          estado->setAceptacion();
+        }
       }
     }
   }
