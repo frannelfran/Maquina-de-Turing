@@ -28,7 +28,33 @@ MaquinaTuring::MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alf
  * @return true si la cadena es aceptada, false en caso contrario
  */
 bool MaquinaTuring::ejecutar(string cadena) {
-  return true;
+  // Compruebo si la cadena es válida
+  if (!esValida(cadena)) {
+    cerr << "Error: La cadena contiene símbolos que no pertenecen al alfabeto de entrada." << endl;
+    return false;
+  }
+
+  // Inserto la cadena en la cinta
+  cinta_.insertar(cadena);
+
+  while (true) {
+    char simboloLeido = cinta_.leer();
+
+    // Obtengo la transicion para ese simbolo
+    Transicion* transicion = obtenerTransicionPosible(simboloLeido);
+
+    if (transicion == nullptr) {
+      // No hay transicion posible
+      return false;
+    }
+
+    // Ejecuto la transicion
+    estadoActual_ = transicion->ejecutar(cinta_);
+
+    if (estadoActual_->esAceptacion()) {
+      return true;
+    }
+  }
 }
 
 /**
@@ -36,7 +62,7 @@ bool MaquinaTuring::ejecutar(string cadena) {
  * @param simbolo Cadena de entrada
  * @return Transición posible o nullptr si no hay ninguna
  */
-Transicion* MaquinaTuring::obtenerTransicionesPosibles(char simbolo) {
+Transicion* MaquinaTuring::obtenerTransicionPosible(char simbolo) {
   Transicion* transicionPosible = nullptr;
   
   for (auto& transicion : estadoActual_->getTransiciones()) {
@@ -94,6 +120,7 @@ void MaquinaTuring::reiniciar() {
       break;
     }
   }
+  cinta_.limpiar();
 }
 
 /**
