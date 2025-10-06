@@ -217,7 +217,7 @@ void comprobarSimbolo(const char& simbolo) {
  * @return void
  */
 void comprobarEscrituraLectura(const char& simbolo) {
-  if (simbolo != 'R' && simbolo != 'L') {
+  if (simbolo != 'R' && simbolo != 'L' && simbolo != 'S') {
     throw runtime_error("El símbolo '" + string(1, simbolo) + "' no es un símbolo de escritura/lectura válido.");
   }
 }

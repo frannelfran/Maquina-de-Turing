@@ -33,7 +33,7 @@ Estado* Transicion::ejecutar(Cinta& cinta) {
     cinta.moverDerecha();
   } else if (movimientoCinta_ == 'L') {
     cinta.moverIzquierda();
-  }
+  } // Si es 'S' no hago nada
   
   // Retorno el estado siguiente
   return siguiente_;

@@ -37,7 +37,7 @@ class Transicion {
     int id_;
     char lecturaCinta_;
     char escrituraCinta_;
-    char movimientoCinta_; // 'L' (izquierda), 'R' (derecha)
+    char movimientoCinta_; // 'L' (izquierda), 'R' (derecha), 'S' (sin movimiento)
     Estado* actual_;
     Estado* siguiente_;
 };
