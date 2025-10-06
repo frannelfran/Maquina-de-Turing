@@ -27,12 +27,11 @@ class Automata {
     bool esValida(const string& cadena) const;
     void reiniciar();
     void mostrarTraza(const string& cadena, const vector<Transicion*>& transiciones) {}
-    vector<Transicion*> obtenerTransicionesPosibles(char simbolo);
+    Transicion* obtenerTransicionesPosibles(char simbolo);
 
   private:
     vector<Estado*> estados_;
     Alfabeto alfabetoEntrada_;
-    Alfabeto alfabetoCinta_;
     Cinta cinta_;
     Estado* estadoActual_;
 };

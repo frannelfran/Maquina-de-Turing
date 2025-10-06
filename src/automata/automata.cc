@@ -11,7 +11,7 @@ Automata::Automata(const vector<Estado*>& estados, const Alfabeto& alfabetoEntra
   estados_ = estados;
   sort(estados_.begin(), estados_.end(), [](Estado* a, Estado* b) { return *a < *b; });
   alfabetoEntrada_ = alfabetoEntrada;
-  alfabetoCinta_ = alfabetoCinta;
+  cinta_ = Cinta(alfabetoCinta);
 
   // Inicializo el estado actual al estado inicial
   for (Estado* estado : estados_) {
@@ -34,18 +34,18 @@ bool Automata::ejecutar(string cadena) {
 /**
  * @brief Método para obtener las transiciones posibles desde el estado actual
  * @param simbolo Cadena de entrada
- * @return Vector de transiciones posibles
+ * @return Transición posible o nullptr si no hay ninguna
  */
-vector<Transicion*> Automata::obtenerTransicionesPosibles(char simbolo) {
-  vector<Transicion*> transicionesPosibles;
+Transicion* Automata::obtenerTransicionesPosibles(char simbolo) {
+  Transicion* transicionPosible = nullptr;
   
   for (auto& transicion : estadoActual_->getTransiciones()) {
     if (transicion.getLecturaCinta() == simbolo || transicion.getLecturaCinta() == '.') {
-      transicionesPosibles.push_back(&transicion);
+      transicionPosible = &transicion;
+      break;
     }
   }
-  
-  return transicionesPosibles;
+  return transicionPosible;
 }
 
 /**
@@ -123,7 +123,7 @@ ostream& operator<<(ostream& os, const Automata& automata) {
   }
   os << "}" << endl;
   os << "Σ -> " << automata.alfabetoEntrada_ << endl;
-  os << "Γ -> " << automata.alfabetoCinta_ << endl;
+  os << "Γ -> " << automata.cinta_.getAlfabeto() << endl;
   os << "q0 -> " << automata.estadoActual_->getId() << endl;
   os << "F -> {";
   for (auto it = automata.estados_.begin(); it != automata.estados_.end(); ++it) {
