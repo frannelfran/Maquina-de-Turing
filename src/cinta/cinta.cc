@@ -7,7 +7,9 @@
  */
 void Cinta::insertar(const string& cadena) {
   for (char simbolo : cadena) {
-    if (pertenece(simbolo)) {
+    if (!pertenece(simbolo)) {
+      throw invalid_argument("El símbolo '" + string(1, simbolo) + "' no pertenece al alfabeto de la cinta.");
+    } else {
       cinta_.push_back(simbolo);
     }
   }
