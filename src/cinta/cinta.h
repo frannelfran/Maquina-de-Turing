@@ -1,5 +1,4 @@
-#include <iostream>
-#include <vector>
+#include "../alfabeto/alfabeto.h"
 
 #ifndef CINTA_H
 #define CINTA_H
@@ -14,7 +13,7 @@ class Cinta {
   public:
     // Constructor y destructor
     Cinta() = default;
-    Cinta(const string& contenido) : cinta_(contenido.begin(), contenido.end()), cabezal_(0), desplazamiento_(0) {}
+    Cinta(const Alfabeto& alfabeto) : alfabetoCinta_(alfabeto), cabezal_(0), desplazamiento_(0) {}
     ~Cinta() = default;
 
     // Métodos para manipular la cinta
@@ -23,12 +22,18 @@ class Cinta {
     void moverDerecha();
     void moverIzquierda();
     void comprobarCabezal();
+    void insertar(const string& cadena);
+    inline bool pertenece(char simbolo) const { return alfabetoCinta_.pertenece(simbolo); }
+
+    // Getters
+    inline Alfabeto getAlfabeto() const { return alfabetoCinta_; }
     
     // Sobrecarga de operadores
     friend ostream& operator<<(ostream& os, const Cinta& cinta);
 
   private:
     vector<char> cinta_;
+    Alfabeto alfabetoCinta_;
     int cabezal_;
     int desplazamiento_;
 };
