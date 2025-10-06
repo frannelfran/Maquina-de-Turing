@@ -18,10 +18,11 @@ class Cinta {
     ~Cinta() = default;
 
     // Métodos para manipular la cinta
-    char leer() const;
-    char escribir(char simbolo);
+    char leer();
+    void escribir(char simbolo);
     void moverDerecha();
     void moverIzquierda();
+    void comprobarCabezal();
     
     // Sobrecarga de operadores
     friend ostream& operator<<(ostream& os, const Cinta& cinta);
