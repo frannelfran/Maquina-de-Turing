@@ -1,6 +1,19 @@
 #include "cinta.h"
 
 /**
+ * @brief Método para insertar una cadena en la cinta
+ * @param cadena Cadena a insertar
+ * @return void
+ */
+void Cinta::insertar(const string& cadena) {
+  for (char simbolo : cadena) {
+    if (pertenece(simbolo)) {
+      cinta_.push_back(simbolo);
+    }
+  }
+}
+
+/**
  * @brief Método para comprobar el cabezal y ajustar la cinta si es necesario
  * @return void
  */
