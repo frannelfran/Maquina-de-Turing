@@ -121,6 +121,12 @@ void leerAlfabeto(istringstream is) {
 void leerTransiciones(istringstream is, int id) {
   string actual, lecturaCinta, siguiente, escrituraCinta, movimientoCinta;
   is >> actual >> lecturaCinta >> siguiente >> escrituraCinta >> movimientoCinta;
+  // Compruebo que el/los estado/s final no tiene/n transiciones
+  for (Estado* e : datos.estados) {
+    if (e->getId() == actual && e->esAceptacion()) {
+      throw runtime_error("El estado " + actual + " es de aceptación y no puede tener transiciones.");
+    }
+  }
   // Compruebo los estados
   comprobarEstado(actual), comprobarEstado(siguiente);
   // Compruebo los símbolos
