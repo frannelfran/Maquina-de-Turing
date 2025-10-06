@@ -23,6 +23,7 @@ class Cinta {
     void moverIzquierda();
     void comprobarCabezal();
     void insertar(const string& cadena);
+    inline void limpiar() { cinta_.clear(); cabezal_ = 0; desplazamiento_ = 0; } // Limpia la cinta
     inline bool pertenece(char simbolo) const { return alfabetoCinta_.pertenece(simbolo); }
 
     // Getters
