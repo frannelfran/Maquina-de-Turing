@@ -28,9 +28,11 @@ int main(int argc, char* argv[]) {
     string cadena;
     
     while (true) {
-      cout << "Cadena ? (s para salir) ";
-      cin >> cadena;
-      if (cadena == "s") {
+      cout << "Cadena ? (ENTER para salir) ";
+      if (!std::getline(cin, cadena)) {
+        break;
+      }
+      if (cadena.empty()) {
         break;
       }
       if (mt.ejecutar(cadena)) {
