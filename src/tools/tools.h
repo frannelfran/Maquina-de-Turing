@@ -5,7 +5,6 @@
 #include <fstream> // Para manejo de archivos
 #include <stdexcept> // Para las excepciones
 #include <sstream> // Para istringstream
-#include <iomanip> // Para std::setw
 
 #ifndef TOOLS_H
 #define TOOLS_H
@@ -29,6 +28,5 @@ void comprobarEstado(const string& estado); // Compruebo que el estado es válid
 void comprobarSimboloCinta(const char& simbolo); // Compruebo que el símbolo es válido
 void comprobarEscrituraLectura(const char& simbolo); // Compruebo que el símbolo es de escritura/lectura válido
 Estado* buscarEstado(const string& estado); // Buscar un estado en el conjunto de estados
-void mostrarCabecera(); // Muestro el inicio de la traza
 
 #endif // TOOLS_H

@@ -28,12 +28,11 @@ int main(int argc, char* argv[]) {
     string cadena;
     
     while (true) {
-      cout << "Cadena ? (0 para salir) ";
+      cout << "Cadena ? (s para salir) ";
       cin >> cadena;
-      if (cadena == "0") {
+      if (cadena == "s") {
         break;
       }
-      mostrarCabecera();
       if (mt.ejecutar(cadena)) {
         cout << "La cadena " << cadena << " pertenece al lenguaje." << endl;
       } else {

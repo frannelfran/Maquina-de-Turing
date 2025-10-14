@@ -2,7 +2,6 @@
 #include "../alfabeto/alfabeto.h"
 #include "../transicion/transicion.h"
 #include "../estado/estado.h"
-#include <iomanip> // Para std::setw
 #include <vector> // Para std::vector
 #include <algorithm> // Para sort
 

@@ -95,22 +95,12 @@ Transicion* MaquinaTuring::obtenerTransicionPosible(vector<char> simbolosLeidos)
  * @return void
  */
 void MaquinaTuring::mostrarTraza(const string& cadena, const Transicion* transicion) {
-  // Luego muestro el estado actual
-  cout << left << setw(20) << estadoActual_->getId();
-
-  // Primero muestro el id de la transición
-  if (transicion == nullptr) {
-    cout << setw(15) << "-" ;
-  } else {
-    cout << setw(15) << transicion->getId();
-  }
-
-
-  // Muestro las cintas
+  cout << "-------------------------------------------------" << endl;
+  cout << "Estado actual: " << estadoActual_->getId() << endl;
   for (size_t i = 0; i < cintas_.size(); ++i) {
-    cout << setw(15) << cintas_[i];
+    cout << "Cinta " << i + 1 << ": " << cintas_[i] << endl;
   }
-  cout << endl;
+  cout << "transición: " << (transicion ? to_string(transicion->getId()) : "-") << endl;
   cout << "-------------------------------------------------" << endl;
 }
 

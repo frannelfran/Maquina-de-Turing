@@ -236,16 +236,3 @@ void comprobarEscrituraLectura(const char& simbolo) {
     throw runtime_error("El símbolo '" + string(1, simbolo) + "' no es un símbolo de escritura/lectura válido.");
   }
 }
-
-/**
- * @brief Función para mostrar la cabecera de la traza
- * @return void
- */
-void mostrarCabecera() {
-  cout << "-------------------------------------------------" << endl;
-  cout << left;
-  cout << setw(20) << "Estado actual" 
-  << setw(15) << "Transicion"
-  << setw(15) << "Cinta/s" << endl;
-  cout << "-------------------------------------------------" << endl;
-}
