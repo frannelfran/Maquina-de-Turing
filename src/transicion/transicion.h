@@ -18,26 +18,26 @@ class Transicion {
   public:
     // Constructor y destructor
     Transicion() = default;
-    Transicion(const int& id, Estado* actual, const char& lecturaCinta, Estado* siguiente, const char& escrituraCinta, const char& movimientoCinta);
+    Transicion(const int& id, Estado* actual, const vector<char>& lecturaCinta, Estado* siguiente, const vector<char>& escrituraCinta, const vector<char>& movimientoCinta);
     ~Transicion() = default;
 
     // Getters
-    inline char getLecturaCinta() const { return lecturaCinta_; }
-    inline char getEscrituraCinta() const { return escrituraCinta_; }
-    inline char getMovimientoCinta() const { return movimientoCinta_; }
+    inline vector<char> getLecturaCintas() const { return lecturaCintas_; }
+    inline vector<char> getEscrituraCintas() const { return escrituraCintas_; }
+    inline vector<char> getMovimientoCintas() const { return movimientoCintas_; }
     inline int getId() const { return id_; }
 
     // Métodos
-    Estado* ejecutar(Cinta& cinta);
+    Estado* ejecutar(vector<Cinta>& cintas);
 
     // Sobrecarga de operadores
     friend ostream& operator<<(ostream& os, const Transicion& transicion);
 
   private:
     int id_;
-    char lecturaCinta_;
-    char escrituraCinta_;
-    char movimientoCinta_; // 'L' (izquierda), 'R' (derecha), 'S' (sin movimiento)
+    vector<char> lecturaCintas_;
+    vector<char> escrituraCintas_;
+    vector<char> movimientoCintas_; // 'L' (izquierda), 'R' (derecha), 'S' (sin movimiento)
     Estado* actual_;
     Estado* siguiente_;
 };

@@ -10,41 +10,53 @@
  * @param escrituraCinta Símbolo que se escribe en la cinta
  * @param movimientoCinta Movimiento de la cabeza de la cinta ('L' para izquierda, 'R' para derecha)
  */
-Transicion::Transicion(const int& id, Estado* actual, const char& lecturaCinta, Estado* siguiente, const char& escrituraCinta, const char& movimientoCinta) {
+Transicion::Transicion(const int& id, Estado* actual, const vector<char>& lecturaCinta, Estado* siguiente, const vector<char>& escrituraCinta, const vector<char>& movimientoCinta) {
   id_ = id;
   actual_ = actual;
-  lecturaCinta_ = lecturaCinta;
+  lecturaCintas_ = lecturaCinta;
   siguiente_ = siguiente;
-  escrituraCinta_ = escrituraCinta;
-  movimientoCinta_ = movimientoCinta;
+  escrituraCintas_ = escrituraCinta;
+  movimientoCintas_ = movimientoCinta;
 }
 
 /**
  * @brief Método para ejecutar la transición
- * @param cinta Cinta de la máquina de Turing
+ * @param cintas Cintas de la máquina de Turing
  * @return Estado siguiente después de ejecutar la transición
  */
-Estado* Transicion::ejecutar(Cinta& cinta) {
-  // Escribo en la cinta
-  cinta.escribir(escrituraCinta_);
-  
-  // Muevo la cabeza de la cinta
-  if (movimientoCinta_ == 'R') {
-    cinta.moverDerecha();
-  } else if (movimientoCinta_ == 'L') {
-    cinta.moverIzquierda();
-  } // Si es 'S' no hago nada
-  
-  // Retorno el estado siguiente
-  return siguiente_;
+Estado* Transicion::ejecutar(vector<Cinta>& cintas) {
 }
 
 /**
  * @overload Sobrecarga del operador de salida para imprimir una transición
  */
 ostream& operator<<(ostream& os, const Transicion& transicion) {
-  os << "(" << transicion.actual_->getId() << ", " << transicion.lecturaCinta_ << ")";
-  os << " -> (" << transicion.siguiente_->getId() << ", " << transicion.escrituraCinta_ << ", " << transicion.movimientoCinta_ << ")";
-  os << " [ID: " << transicion.id_ << "]";
+  os << "δ(" << transicion.actual_->getId() << ", ";
+  // Muestro los simbolos de lectura
+  for (size_t i = 0; i < transicion.lecturaCintas_.size(); ++i) {
+    os << transicion.lecturaCintas_[i];
+    if (i < transicion.lecturaCintas_.size() - 1) {
+      os << ",";
+    }
+  }
+  os << ") -> (" << transicion.siguiente_->getId() << ", ";
+  // Muestro los simbolos de escritura
+  for (size_t i = 0; i < transicion.escrituraCintas_.size(); ++i) {
+    os << transicion.escrituraCintas_[i];
+    if (i < transicion.escrituraCintas_.size() - 1) {
+      os << ",";
+    }
+  }
+
+  // Muestro los movimientos
+  os << ", ";
+  for (size_t i = 0; i < transicion.movimientoCintas_.size(); ++i) {
+    os << transicion.movimientoCintas_[i];
+    if (i < transicion.movimientoCintas_.size() - 1) {
+      os << ",";
+    }
+  }
+  os << ")";
+  
   return os;
 }
