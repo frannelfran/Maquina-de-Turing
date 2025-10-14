@@ -1,0 +1,24 @@
+# Ejemplo de una MT multicinta
+# Cuenta el número de a's y de b's separados por un espacio
+q0 q1 q2 q3 q4 q5 q6 q7 q8 q9
+a b
+a b 1 .
+q0
+.
+q3 q6 q9
+3
+q0 b . . q0 . . b R S R
+q0 a . . q0 . a . R R S
+q0 . . . q1 1 . . L L L
+q1 . a . q2 . a . L S S
+q1 . a b q4 1 a . L S L
+q1 . . b q7 1 . . L S L
+q2 . a . q2 1 . . L L S
+q2 . . . q3 1 . . S S S
+q4 . a b q4 1 a . L S L
+q4 . a . q5 . a . L S S
+q5 . a . q5 1 . . L L L
+q5 . . . q6 1 . . S S S
+q7 . . b q7 1 . . L S L
+q7 . . . q8 . . . L S S
+q8 . . . q9 1 . . S S S
