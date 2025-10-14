@@ -25,6 +25,25 @@ Transicion::Transicion(const int& id, Estado* actual, const vector<char>& lectur
  * @return Estado siguiente después de ejecutar la transición
  */
 Estado* Transicion::ejecutar(vector<Cinta>& cintas) {
+  for (auto& cinta : cintas) {
+    cinta.comprobarCabezal(); // Compruebo el cabezal antes de escribir
+  }
+
+  // Escribo en las cintas y muevo el cabezal
+  for (size_t i = 0; i < cintas.size(); ++i) {
+    cintas[i].escribir(escrituraCintas_[i]);
+  }
+
+  // Muevo los cabezales
+  for (size_t i = 0; i < cintas.size(); ++i) {
+    if (movimientoCintas_[i] == 'R') {
+      cintas[i].moverDerecha();
+    } else if (movimientoCintas_[i] == 'L') {
+      cintas[i].moverIzquierda();
+    } // Si es 'S' no hago nada
+  }
+
+  return siguiente_;
 }
 
 /**
@@ -32,11 +51,12 @@ Estado* Transicion::ejecutar(vector<Cinta>& cintas) {
  * @param simbolosLeidos Símbolos leídos en las cintas
  * @return true si la transición es aplicable, false en caso contrario
  */
-bool Transicion::esAplicable(const vector<char> simbolosLeidos) const {
+bool Transicion::esAplicable(const vector<char>& simbolosLeidos) const {
   for (size_t i = 0; i < lecturaCintas_.size(); ++i) {
-    if (lecturaCintas_[i] != simbolosLeidos[i] && lecturaCintas_[i] != '.') {
-      return false;
+    if (lecturaCintas_[i] == simbolosLeidos[i]) {
+      continue;
     }
+    return false;
   }
   return true;
 }
@@ -70,7 +90,7 @@ ostream& operator<<(ostream& os, const Transicion& transicion) {
       os << ",";
     }
   }
-  os << ")";
+  os << ") ID: " << transicion.id_;
   
   return os;
 }

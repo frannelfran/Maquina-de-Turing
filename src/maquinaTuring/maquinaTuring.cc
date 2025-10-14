@@ -13,6 +13,11 @@ MaquinaTuring::MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alf
   alfabetoEntrada_ = alfabetoEntrada;
   // Inicializo las cintas
   cintas_.resize(numCintas, Cinta(alfabetoCinta));
+  if (numCintas > 1) {
+    for (int i = 1; i < numCintas; ++i) {
+      cintas_[i].insertar("."); // Relleno las cintas adicionales con un blanco
+    }
+  }
 
   // Inicializo el estado actual al estado inicial
   for (Estado* estado : estados_) {
@@ -38,41 +43,49 @@ bool MaquinaTuring::ejecutar(string cadena) {
   // Inserto la cadena en la cinta 1
   cintas_[0].insertar(cadena);
 
-  // Muestro la cabecera
-  mostrarTraza(cadena, nullptr);
+  while (true) {
+    // Leo los simbolos de las cintas
+    vector<char> simbolosLeidos;
+    for (Cinta& cinta : cintas_) {
+      simbolosLeidos.push_back(cinta.leer());
+    }
 
-  //while (true) {
-  //  char simboloLeido = cinta_.leer();
-//
-  //  // Obtengo la transicion para ese simbolo
-  //  Transicion* transicion = obtenerTransicionPosible(simboloLeido);
-//
-  //  if (transicion == nullptr) {
-  //    // No hay transicion posible
-  //    return false;
-  //  }
-//
-  //  // Ejecuto la transicion
-  //  estadoActual_ = transicion->ejecutar(cinta_);
-//
-  //  // Muestro la traza
-  //  mostrarTraza(cadena, transicion);
-//
-  //  if (estadoActual_->esAceptacion()) {
-  //    return true;
-  //  }
-  //}
+    // Obtengo la transicion para ese simbolo
+    Transicion* transicion = obtenerTransicionPosible(simbolosLeidos);
+
+    // Muestro la traza
+    mostrarTraza(cadena, transicion);
+
+    if (transicion == nullptr) {
+      // No hay transicion posible
+      return false;
+    }
+
+    // Ejecuto la transicion
+    estadoActual_ = transicion->ejecutar(cintas_);
+
+    if (estadoActual_->esAceptacion()) {
+      mostrarTraza(cadena, nullptr);
+      return true;
+    }
+  }
 }
 
 /**
  * @brief Método para obtener las transiciones posibles desde el estado actual
- * @param simbolo Cadena de entrada
+ * @param simbolosLeidos Símbolos leídos en las cintas
  * @return Transición posible o nullptr si no hay ninguna
  */
-Transicion* MaquinaTuring::obtenerTransicionPosible(char simbolo) {
+Transicion* MaquinaTuring::obtenerTransicionPosible(vector<char> simbolosLeidos) {
   Transicion* transicionPosible = nullptr;
-  
-  
+
+  for (auto& transicion : estadoActual_->getTransiciones()) {
+    if (transicion.esAplicable(simbolosLeidos)) {
+      transicionPosible = &transicion;
+      break;
+    }
+  }
+  return transicionPosible;
 }
 
 /**
@@ -82,19 +95,22 @@ Transicion* MaquinaTuring::obtenerTransicionPosible(char simbolo) {
  * @return void
  */
 void MaquinaTuring::mostrarTraza(const string& cadena, const Transicion* transicion) {
-  cout << left
-  << setw(20) << estadoActual_->getId();
+  // Luego muestro el estado actual
+  cout << left << setw(20) << estadoActual_->getId();
+
+  // Primero muestro el id de la transición
+  if (transicion == nullptr) {
+    cout << setw(15) << "-" ;
+  } else {
+    cout << setw(15) << transicion->getId();
+  }
+
+
   // Muestro las cintas
   for (size_t i = 0; i < cintas_.size(); ++i) {
     cout << setw(15) << cintas_[i];
   }
-  if (transicion == nullptr) {
-    cout << setw(15) << "-" << endl;
-    cout << "-------------------------------------------------" << endl;
-    return;
-  }
-  cout << left
-  << setw(15) << transicion->getId() << endl;
+  cout << endl;
   cout << "-------------------------------------------------" << endl;
 }
 

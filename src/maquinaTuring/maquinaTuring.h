@@ -16,7 +16,7 @@
 class MaquinaTuring {
   public:
     // Constructor y destructor
-    MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta, int numCintas = 1);
+    MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta, int numCintas);
     ~MaquinaTuring() = default;
 
     // Sobrecarga de operadores
@@ -27,7 +27,7 @@ class MaquinaTuring {
     bool esValida(const string& cadena) const;
     void reiniciar();
     void mostrarTraza(const string& cadena, const Transicion* transicion);
-    Transicion* obtenerTransicionPosible(char simbolo);
+    Transicion* obtenerTransicionPosible(vector<char> simbolosLeidos);
 
   private:
     vector<Estado*> estados_;

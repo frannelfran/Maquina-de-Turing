@@ -21,11 +21,11 @@ void Cinta::insertar(const string& cadena) {
  */
 void Cinta::comprobarCabezal() {
   if (cabezal_ < 0) {
-    cinta_.insert(cinta_.begin(), '_'); // Añadir blanco si nos salimosm por la izquierda
+    cinta_.insert(cinta_.begin(), '.'); // Añadir blanco si nos salimos por la izquierda
     cabezal_ = 0;
     desplazamiento_++;
   } else if (cabezal_ >= cinta_.size()) {
-    cinta_.push_back('_'); // Añadir blanco si nos salimos por la derecha
+    cinta_.push_back('.'); // Añadir blanco si nos salimos por la derecha
     cabezal_ = cinta_.size() - 1;
     desplazamiento_++;
   }

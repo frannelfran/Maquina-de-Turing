@@ -245,7 +245,7 @@ void mostrarCabecera() {
   cout << "-------------------------------------------------" << endl;
   cout << left;
   cout << setw(20) << "Estado actual" 
-  << setw(15) << "Cinta"
-  << setw(15) << "Transicion" << endl;
+  << setw(15) << "Transicion"
+  << setw(15) << "Cinta/s" << endl;
   cout << "-------------------------------------------------" << endl;
 }

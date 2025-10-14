@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
     Tools datos = leerFichero(nombreFichero);
     cout << "Fichero leído correctamente." << endl;
     // Creo la máquina de Turing con los datos leídos
-    MaquinaTuring mt(datos.estados, datos.alfabetos.first, datos.alfabetos.second);
+    MaquinaTuring mt(datos.estados, datos.alfabetos.first, datos.alfabetos.second, datos.numCintas);
     
     cout << mt;
     string cadena;
