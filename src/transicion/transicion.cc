@@ -28,6 +28,20 @@ Estado* Transicion::ejecutar(vector<Cinta>& cintas) {
 }
 
 /**
+ * @brief Método para comprobar si la transición es aplicable
+ * @param simbolosLeidos Símbolos leídos en las cintas
+ * @return true si la transición es aplicable, false en caso contrario
+ */
+bool Transicion::esAplicable(const vector<char> simbolosLeidos) const {
+  for (size_t i = 0; i < lecturaCintas_.size(); ++i) {
+    if (lecturaCintas_[i] != simbolosLeidos[i] && lecturaCintas_[i] != '.') {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
  * @overload Sobrecarga del operador de salida para imprimir una transición
  */
 ostream& operator<<(ostream& os, const Transicion& transicion) {

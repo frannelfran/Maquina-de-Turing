@@ -26,7 +26,7 @@ class Transicion {
 
     // Métodos
     Estado* ejecutar(vector<Cinta>& cintas);
-    bool comprobarLectura() const; // Comprueba si la transición se puede aplicar según los símbolos leídos
+    bool esAplicable(vector<char> simbolosLeidos) const; // Comprobar si la transicion es aplicable
 
     // Sobrecarga de operadores
     friend ostream& operator<<(ostream& os, const Transicion& transicion);
