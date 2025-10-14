@@ -16,7 +16,7 @@
 class MaquinaTuring {
   public:
     // Constructor y destructor
-    MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta);
+    MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta, int numCintas = 1);
     ~MaquinaTuring() = default;
 
     // Sobrecarga de operadores
@@ -32,7 +32,7 @@ class MaquinaTuring {
   private:
     vector<Estado*> estados_;
     Alfabeto alfabetoEntrada_;
-    Cinta cinta_;
+    vector<Cinta> cintas_;
     Estado* estadoActual_;
 };
 

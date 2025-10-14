@@ -22,13 +22,11 @@ class Transicion {
     ~Transicion() = default;
 
     // Getters
-    inline vector<char> getLecturaCintas() const { return lecturaCintas_; }
-    inline vector<char> getEscrituraCintas() const { return escrituraCintas_; }
-    inline vector<char> getMovimientoCintas() const { return movimientoCintas_; }
     inline int getId() const { return id_; }
 
     // Métodos
     Estado* ejecutar(vector<Cinta>& cintas);
+    bool comprobarLectura() const; // Comprueba si la transición se puede aplicar según los símbolos leídos
 
     // Sobrecarga de operadores
     friend ostream& operator<<(ostream& os, const Transicion& transicion);

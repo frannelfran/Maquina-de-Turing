@@ -45,19 +45,20 @@ Tools leerFichero(const string& nombreFichero) {
 
   // Leo el simbolo blanco de la máquina
   getline(file, linea);
-  comprobarSimbolo(linea[0]);
+  comprobarSimboloCinta(linea[0]);
 
   // Leo el conjunto de estados finales
   getline(file, linea);
   leerEstadosFinales(istringstream(linea));
 
-  // Leo las transiciones
+  // Leo las transiciones y el número de cintas
+  datos.numCintas = getline(file, linea) ? stoi(linea) : 1;
   int id = 1;
   while (getline(file, linea)) {
     if (linea.empty() || linea[0] == '#') {
       continue;
     }
-    leerTransiciones(istringstream(linea), id++);
+    leerTransiciones(istringstream(linea), id++, datos.numCintas);
   }
   return datos;
 }
@@ -121,9 +122,37 @@ void leerAlfabeto(istringstream is) {
  * @param id Identificador de la transición
  * @return void
  */
-void leerTransiciones(istringstream is, int id) {
-  string actual, lecturaCinta, siguiente, escrituraCinta, movimientoCinta;
-  is >> actual >> lecturaCinta >> siguiente >> escrituraCinta >> movimientoCinta;
+void leerTransiciones(istringstream is, int id, int numCintas) {
+  string actual, siguiente;
+  vector<char> lecturaCintas, escrituraCintas, movimientoCintas;
+  is >> actual;
+
+  // Leo los simbolos de lectura
+  for (int i = 0; i < numCintas; ++i) {
+    char simbolo;
+    is >> simbolo;
+    comprobarSimboloCinta(simbolo);
+    lecturaCintas.push_back(simbolo);
+  }
+
+  is >> siguiente;
+
+  // Leo los simbolos de escritura
+  for (int i = 0; i < numCintas; ++i) {
+    char simbolo;
+    is >> simbolo;
+    comprobarSimboloCinta(simbolo);
+    escrituraCintas.push_back(simbolo);
+  }
+
+  // Leo los simbolos de movimiento
+  for (int i = 0; i < numCintas; ++i) {
+    char simbolo;
+    is >> simbolo;
+    comprobarEscrituraLectura(simbolo);
+    movimientoCintas.push_back(simbolo);
+  }
+
   // Compruebo que el/los estado/s final no tiene/n transiciones
   for (Estado* e : datos.estados) {
     if (e->getId() == actual && e->esAceptacion()) {
@@ -132,12 +161,10 @@ void leerTransiciones(istringstream is, int id) {
   }
   // Compruebo los estados
   comprobarEstado(actual), comprobarEstado(siguiente);
-  // Compruebo los símbolos
-  comprobarSimbolo(lecturaCinta[0]), comprobarSimbolo(escrituraCinta[0]), comprobarEscrituraLectura(movimientoCinta[0]);
-  // Busco el estaddo inicial y siguiente en el conjunto de estados
+  // Busco el estado inicial y siguiente en el conjunto de estados
   Estado* estadoSiguiente = buscarEstado(siguiente), *estadoActual = buscarEstado(actual);
   // Creo la transición y la agrego la transicion
-  Transicion transicion(id, estadoActual, lecturaCinta[0], estadoSiguiente, escrituraCinta[0], movimientoCinta[0]);
+  Transicion transicion(id, estadoActual, lecturaCintas, estadoSiguiente, escrituraCintas, movimientoCintas);
   for (Estado* e : datos.estados) {
     if (e->getId() == actual) {
       e->agregarTransicion(transicion);
@@ -189,25 +216,13 @@ void comprobarEstado(const string& estado) {
 }
 
 /**
- * @brief Función para comprobar que el símbolo pertenece al alfabeto del autómata
- * @param simbolo Símbolo a comprobar
- * @return void
+ * @brief Comprueba que un símbolo pertenece al alfabeto de entrada (Σ)
  */
-void comprobarSimbolo(const char& simbolo) {
-  bool pertenece = false;
-
-  if (simbolo == '.') { // epsilon siempre pertenece
-    return;
-  } else if (datos.alfabetos.first.pertenece(simbolo)) {
-    pertenece = true;
-  } else if (datos.alfabetos.second.pertenece(simbolo)) {
-    pertenece = true;
-  }
-
-  if (!pertenece) {
-    cerr << "Σ -> " << datos.alfabetos.first << endl;
+void comprobarSimboloCinta(const char& simbolo) {
+  if (simbolo == '.') return; // epsilon siempre permitido en lectura de cadena
+  if (!datos.alfabetos.second.pertenece(simbolo)) {
     cerr << "Γ -> " << datos.alfabetos.second << endl;
-    throw runtime_error("El símbolo '" + string(1, simbolo) + "' no pertenece a ningún alfabeto.");
+    throw runtime_error(string("El símbolo '") + simbolo + "' no pertenece al alfabeto de la cinta (Γ).");
   }
 }
 

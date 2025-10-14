@@ -7,11 +7,12 @@
  * @param alfabetoPila Alfabeto de la pila del autómata
  * @param topPila Símbolo inicial de la pila
  */
-MaquinaTuring::MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta) {
+MaquinaTuring::MaquinaTuring(const vector<Estado*>& estados, const Alfabeto& alfabetoEntrada, const Alfabeto& alfabetoCinta, int numCintas) {
   estados_ = estados;
   sort(estados_.begin(), estados_.end(), [](Estado* a, Estado* b) { return *a < *b; });
   alfabetoEntrada_ = alfabetoEntrada;
-  cinta_ = Cinta(alfabetoCinta);
+  // Inicializo las cintas
+  cintas_.resize(numCintas, Cinta(alfabetoCinta));
 
   // Inicializo el estado actual al estado inicial
   for (Estado* estado : estados_) {
@@ -34,33 +35,33 @@ bool MaquinaTuring::ejecutar(string cadena) {
     return false;
   }
 
-  // Inserto la cadena en la cinta
-  cinta_.insertar(cadena);
+  // Inserto la cadena en la cinta 1
+  cintas_[0].insertar(cadena);
 
   // Muestro la cabecera
   mostrarTraza(cadena, nullptr);
 
-  while (true) {
-    char simboloLeido = cinta_.leer();
-
-    // Obtengo la transicion para ese simbolo
-    Transicion* transicion = obtenerTransicionPosible(simboloLeido);
-
-    if (transicion == nullptr) {
-      // No hay transicion posible
-      return false;
-    }
-
-    // Ejecuto la transicion
-    estadoActual_ = transicion->ejecutar(cinta_);
-
-    // Muestro la traza
-    mostrarTraza(cadena, transicion);
-
-    if (estadoActual_->esAceptacion()) {
-      return true;
-    }
-  }
+  //while (true) {
+  //  char simboloLeido = cinta_.leer();
+//
+  //  // Obtengo la transicion para ese simbolo
+  //  Transicion* transicion = obtenerTransicionPosible(simboloLeido);
+//
+  //  if (transicion == nullptr) {
+  //    // No hay transicion posible
+  //    return false;
+  //  }
+//
+  //  // Ejecuto la transicion
+  //  estadoActual_ = transicion->ejecutar(cinta_);
+//
+  //  // Muestro la traza
+  //  mostrarTraza(cadena, transicion);
+//
+  //  if (estadoActual_->esAceptacion()) {
+  //    return true;
+  //  }
+  //}
 }
 
 /**
@@ -71,13 +72,7 @@ bool MaquinaTuring::ejecutar(string cadena) {
 Transicion* MaquinaTuring::obtenerTransicionPosible(char simbolo) {
   Transicion* transicionPosible = nullptr;
   
-  for (auto& transicion : estadoActual_->getTransiciones()) {
-    if (transicion.getLecturaCinta() == simbolo || transicion.getLecturaCinta() == '.') {
-      transicionPosible = &transicion;
-      break;
-    }
-  }
-  return transicionPosible;
+  
 }
 
 /**
@@ -88,8 +83,11 @@ Transicion* MaquinaTuring::obtenerTransicionPosible(char simbolo) {
  */
 void MaquinaTuring::mostrarTraza(const string& cadena, const Transicion* transicion) {
   cout << left
-  << setw(20) << estadoActual_->getId()
-  << setw(20) << cinta_;
+  << setw(20) << estadoActual_->getId();
+  // Muestro las cintas
+  for (size_t i = 0; i < cintas_.size(); ++i) {
+    cout << setw(15) << cintas_[i];
+  }
   if (transicion == nullptr) {
     cout << setw(15) << "-" << endl;
     cout << "-------------------------------------------------" << endl;
@@ -112,7 +110,11 @@ void MaquinaTuring::reiniciar() {
       break;
     }
   }
-  cinta_.limpiar();
+  
+  // Limpio las cintas
+  for (Cinta& cinta : cintas_) {
+    cinta.limpiar();
+  }
 }
 
 /**
@@ -142,7 +144,7 @@ ostream& operator<<(ostream& os, const MaquinaTuring& MaquinaTuring) {
   }
   os << "}" << endl;
   os << "Σ -> " << MaquinaTuring.alfabetoEntrada_ << endl;
-  os << "Γ -> " << MaquinaTuring.cinta_.getAlfabeto() << endl;
+  os << "Γ -> " << MaquinaTuring.cintas_[0].getAlfabeto() << endl;
   os << "q0 -> " << MaquinaTuring.estadoActual_->getId() << endl;
   os << "F -> {";
   for (auto it = MaquinaTuring.estados_.begin(); it != MaquinaTuring.estados_.end(); ++it) {
