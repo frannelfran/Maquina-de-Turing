@@ -27,6 +27,8 @@ void leerTransiciones(istringstream is, int id, int numCintas); // Leo las trans
 void comprobarEstado(const string& estado); // Compruebo que el estado es válido
 void comprobarSimboloCinta(const char& simbolo); // Compruebo que el símbolo es válido
 void comprobarEscrituraLectura(const char& simbolo); // Compruebo que el símbolo es de escritura/lectura válido
+vector<char> leerSimbolosLectura(istringstream& is, int numCintas); // Leo los simbolos de lectura de las cintas
+vector<pair<char, char>> leerMovimientos(istringstream& is, int numCintas); // Leo los movimientos junto con los simbolos de escritura
 Estado* buscarEstado(const string& estado); // Buscar un estado en el conjunto de estados
 
 #endif // TOOLS_H

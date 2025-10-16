@@ -123,34 +123,19 @@ void leerAlfabeto(istringstream is) {
  * @return void
  */
 void leerTransiciones(istringstream is, int id, int numCintas) {
-  string actual, siguiente;
+  string actual, siguiente, linea;
   vector<char> lecturaCintas, escrituraCintas, movimientoCintas;
   is >> actual;
 
-  // Leo los simbolos de lectura
-  for (int i = 0; i < numCintas; ++i) {
-    char simbolo;
-    is >> simbolo;
-    comprobarSimboloCinta(simbolo);
-    lecturaCintas.push_back(simbolo);
-  }
+  lecturaCintas = leerSimbolosLectura(is, numCintas);
 
   is >> siguiente;
 
-  // Leo los simbolos de escritura
-  for (int i = 0; i < numCintas; ++i) {
-    char simbolo;
-    is >> simbolo;
-    comprobarSimboloCinta(simbolo);
+  // Leo los simbolos de escritura y movimientos
+  vector<pair<char, char>> movimientos = leerMovimientos(is, numCintas);
+  for (const auto& [simbolo, movimiento] : movimientos) {
     escrituraCintas.push_back(simbolo);
-  }
-
-  // Leo los simbolos de movimiento
-  for (int i = 0; i < numCintas; ++i) {
-    char simbolo;
-    is >> simbolo;
-    comprobarEscrituraLectura(simbolo);
-    movimientoCintas.push_back(simbolo);
+    movimientoCintas.push_back(movimiento);
   }
 
   // Compruebo que el/los estado/s final no tiene/n transiciones
@@ -165,12 +150,43 @@ void leerTransiciones(istringstream is, int id, int numCintas) {
   Estado* estadoSiguiente = buscarEstado(siguiente), *estadoActual = buscarEstado(actual);
   // Creo la transición y la agrego la transicion
   Transicion transicion(id, estadoActual, lecturaCintas, estadoSiguiente, escrituraCintas, movimientoCintas);
-  for (Estado* e : datos.estados) {
-    if (e->getId() == actual) {
-      e->agregarTransicion(transicion);
-      break;
-    }
+  
+  buscarEstado(actual)->agregarTransicion(transicion);
+}
+
+/**
+ * @brief Función para leer los simbolos de lectura de las cintas
+ * @param is Stream de entrada
+ * @param numCintas Número de cintas
+ * @return Vector con los simbolos de lectura de las cintas
+ */
+vector<char> leerSimbolosLectura(istringstream& is, int numCintas) {
+  vector<char> lecturaCintas;
+  for (int i = 0; i < numCintas; ++i) {
+    char simbolo;
+    is >> simbolo;
+    comprobarSimboloCinta(simbolo);
+    lecturaCintas.push_back(simbolo);
   }
+  return lecturaCintas;
+}
+
+/**
+ * @brief Función para leer los movimientos de las cintas
+ * @param is Stream de entrada
+ * @param numCintas Número de cintas
+ * @return Vector con los movimientos de las cintas
+ */
+vector<pair<char, char>> leerMovimientos(istringstream& is, int numCintas) {
+  vector<pair<char, char>> movimientos;
+  for (int i = 0; i < numCintas; ++i) {
+    char simbolo, movimiento;
+    is >> simbolo >> movimiento;
+    comprobarSimboloCinta(simbolo);
+    comprobarEscrituraLectura(movimiento);
+    movimientos.emplace_back(simbolo, movimiento);
+  }
+  return movimientos;
 }
 
 /**
