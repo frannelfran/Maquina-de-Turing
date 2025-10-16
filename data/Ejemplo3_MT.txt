@@ -7,10 +7,10 @@ q0
 .
 q3
 2
-q0 a . q0 a . R S
-q0 b . q0 . b R R
-q0 . . q1 . . L L
-q1 . b q1 . b L S
-q1 a b q2 . . L L
-q2 a b q2 . . L L
-q2 . b q3 . b S S
+q0 a . q0 a R . S
+q0 b . q0 . R b R
+q0 . . q1 . L . L
+q1 . b q1 . L b S
+q1 a b q2 . L . L
+q2 a b q2 . L . L
+q2 . b q3 . S b S
