@@ -32,10 +32,6 @@ Estado* Transicion::ejecutar(vector<Cinta>& cintas) {
   // Escribo en las cintas y muevo el cabezal
   for (size_t i = 0; i < cintas.size(); ++i) {
     cintas[i].escribir(escrituraCintas_[i]);
-  }
-
-  // Muevo los cabezales
-  for (size_t i = 0; i < cintas.size(); ++i) {
     if (movimientoCintas_[i] == 'R') {
       cintas[i].moverDerecha();
     } else if (movimientoCintas_[i] == 'L') {
