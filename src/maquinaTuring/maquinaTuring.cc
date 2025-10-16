@@ -149,7 +149,7 @@ ostream& operator<<(ostream& os, const MaquinaTuring& MaquinaTuring) {
     }
   }
   os << "}" << endl;
-  os << "Σ -> " << MaquinaTuring.alfabetoEntrada_ << endl;
+  os << MaquinaTuring.alfabetoEntrada_ << endl;
   os << "Γ -> " << MaquinaTuring.cintas_[0].getAlfabeto() << endl;
   os << "q0 -> " << MaquinaTuring.estadoActual_->getId() << endl;
   os << "F -> {";
