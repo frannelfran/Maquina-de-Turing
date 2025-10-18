@@ -1,6 +1,4 @@
 # Maquina-de-Turing
-Simulador de una MT
-
 Este es un programa que simula el funcionamiento de una `Máquina de turing` multicinta con las siguientes características:
 
 - Movimientos `simultáneos`.
@@ -37,7 +35,7 @@ Este es un programa que simula el funcionamiento de una `Máquina de turing` mul
     │   └── tools.h
     └── transicion
         ├── transicion.cc
-        └── transicion.
+        └── transicion.h
 ```
 
 # Estructura del programa
