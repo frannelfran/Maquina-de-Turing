@@ -332,12 +332,3 @@ transición: -
 -------------------------------------------------
 La cadena 0101 no pertenece al lenguaje.
 ```
-
-
-
-
-
-
-
-
-
