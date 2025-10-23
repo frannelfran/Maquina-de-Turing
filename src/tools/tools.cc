@@ -110,6 +110,10 @@ void leerAlfabeto(istringstream is) {
     alfabeto.insertar(linea[0]);
   }
   if (datos.alfabetos.first.size() == 0) {
+    // Comprobar que el alfabeto de entrada no contiene epsilon ('.')
+    if (alfabeto.pertenece('.')) {
+      throw runtime_error("El símbolo epsilon ('.') no puede pertenecer al alfabeto de entrada (Σ).");
+    }
     datos.alfabetos.first = alfabeto;
   } else {
     datos.alfabetos.second = alfabeto;
