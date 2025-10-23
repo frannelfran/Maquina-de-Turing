@@ -233,9 +233,10 @@ Teniendo lo anterior en cuenta, basta con ejecutar lo siguiente:
 
 ## Cosas a tener en cuenta‼️
 1. Los ficheros deberán estar alojados en el directorio `/data`.
-2. La cadena se introducirá por terminal cuando el programa lo pida.
-3. Si se quiere terminar la ejecución del programa, cuando se solicite la cadena, pulsar `ENTER`.
-4. Para introducir otro fichero se debe terminar con la ejecución del programa.
+2. Los ficheros de error para comprobar el funcionamiento del programa se encuentran en `/data/error`.
+3. La cadena se introducirá por terminal cuando el programa lo pida.
+4. Si se quiere terminar la ejecución del programa, cuando se solicite la cadena, pulsar `ENTER`.
+5. Para introducir otro fichero se debe terminar con la ejecución del programa.
 
 ## Ejemplo de prueba con el fichero Ejemplo_MT.txt
 El fichero `Ejemplo_MT.txt` especifica un autómata para reconocer el lenguaje de cadenas binarias con
