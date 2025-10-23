@@ -162,11 +162,12 @@ void leerTransiciones(istringstream is, int id, int numCintas) {
  */
 vector<char> leerSimbolosLectura(istringstream& is, int numCintas) {
   vector<char> lecturaCintas;
+  lecturaCintas.resize(numCintas);
   for (int i = 0; i < numCintas; ++i) {
     char simbolo;
     is >> simbolo;
     comprobarSimboloCinta(simbolo);
-    lecturaCintas.push_back(simbolo);
+    lecturaCintas[i] = simbolo;
   }
   return lecturaCintas;
 }
@@ -179,12 +180,13 @@ vector<char> leerSimbolosLectura(istringstream& is, int numCintas) {
  */
 vector<pair<char, char>> leerMovimientos(istringstream& is, int numCintas) {
   vector<pair<char, char>> movimientos;
+  movimientos.resize(numCintas);
   for (int i = 0; i < numCintas; ++i) {
     char simbolo, movimiento;
     is >> simbolo >> movimiento;
     comprobarSimboloCinta(simbolo);
     comprobarEscrituraLectura(movimiento);
-    movimientos.emplace_back(simbolo, movimiento);
+    movimientos[i] = make_pair(simbolo, movimiento);
   }
   return movimientos;
 }
