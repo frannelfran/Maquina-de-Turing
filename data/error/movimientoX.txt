@@ -1,7 +1,7 @@
 # Ejemplo de una MT multicinta
 # Reconoce cadenas de a's y b's con un número de b's mayor que el número de a's
 q0 q1 q2 q3
-a b .
+a b 
 a b .
 q0
 .
